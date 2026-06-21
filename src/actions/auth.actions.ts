@@ -13,6 +13,7 @@ import {
 } from '@/validators/auth.schema';
 import { FormState } from '@/types';
 import { revalidatePath } from 'next/cache';
+import { sendWelcomeEmail, sendPasswordResetEmail } from '@/lib/email/service';
 
 export async function signUp(data: SignUpInput): Promise<FormState> {
   try {
@@ -32,6 +33,14 @@ export async function signUp(data: SignUpInput): Promise<FormState> {
     if (error) {
       return { success: false, message: error.message };
     }
+
+    // Send welcome email
+    const verificationUrl = `${process.env.NEXT_PUBLIC_APP_URL}/verify-email`;
+    await sendWelcomeEmail(
+      validatedData.email,
+      validatedData.fullName,
+      verificationUrl
+    );
 
     return {
       success: true,
@@ -86,6 +95,13 @@ export async function forgotPassword(data: ForgotPasswordInput): Promise<FormSta
     const validatedData = forgotPasswordSchema.parse(data);
     const supabase = await createClient();
 
+    // Get user profile to get full name
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('full_name')
+      .eq('email', validatedData.email)
+      .single();
+
     const { error } = await supabase.auth.resetPasswordForEmail(validatedData.email, {
       redirectTo: `${process.env.NEXT_PUBLIC_APP_URL}/reset-password`,
     });
@@ -93,6 +109,14 @@ export async function forgotPassword(data: ForgotPasswordInput): Promise<FormSta
     if (error) {
       return { success: false, message: error.message };
     }
+
+    // Send password reset email
+    const resetUrl = `${process.env.NEXT_PUBLIC_APP_URL}/reset-password`;
+    await sendPasswordResetEmail(
+      validatedData.email,
+      profile?.full_name || 'User',
+      resetUrl
+    );
 
     return { success: true, message: 'Password reset instructions sent to your email.' };
   } catch (error: any) {

@@ -2,6 +2,7 @@ import { headers } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { stripe } from '@/lib/stripe/client';
 import { createAdminClient } from '@/lib/supabase/admin';
+import { sendPaymentReceiptEmail } from '@/lib/email/service';
 import Stripe from 'stripe';
 
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
@@ -93,6 +94,14 @@ export async function POST(req: Request) {
             .single();
 
           if (subData) {
+            // Get user profile for email
+            const { data: profile } = await supabase
+              .from('profiles')
+              .select('email, full_name')
+              .eq('id', subData.user_id)
+              .single();
+
+            // Insert payment record
             await supabase.from('payments').insert({
               user_id: subData.user_id,
               subscription_id: null, // need to fetch exact internal ID if needed
@@ -101,6 +110,18 @@ export async function POST(req: Request) {
               currency: invoice.currency,
               status: 'succeeded',
             });
+
+            // Send payment receipt email
+            if (profile?.email) {
+              await sendPaymentReceiptEmail(
+                profile.email,
+                profile.full_name || 'User',
+                invoice.amount_paid,
+                'Subscription Payment',
+                new Date(invoice.created * 1000).toISOString(),
+                invoice.payment_intent || invoice.id
+              );
+            }
           }
         }
         break;
