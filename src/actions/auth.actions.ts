@@ -20,20 +20,20 @@ export async function signUp(data: SignUpInput): Promise<FormState> {
     const validatedData = signUpSchema.parse(data);
     const supabase = await createClient();
 
-    const { error } = await supabase.auth.signUp({
-      email: validatedData.email,
-      password: validatedData.password,
-      options: {
-        data: {
-          full_name: validatedData.fullName,
-        },
-      },
-    });
+    // const { error } = await supabase.auth.signUp({
+  const { data: authData, error } = await supabase.auth.signUp({
+  email: validatedData.email,
+  password: validatedData.password,
+  options: {
+    data: {
+      full_name: validatedData.fullName,
+    },
+  },
+});
 
-    if (error) {
-      return { success: false, message: error.message };
-    }
-
+// console.log("SIGNUP RESULT:", authData);
+// console.log("SIGNUP ERROR:", error); 
+    
     // Send welcome email
     const verificationUrl = `${process.env.NEXT_PUBLIC_APP_URL}/verify-email`;
     await sendWelcomeEmail(

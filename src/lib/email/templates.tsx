@@ -1,4 +1,4 @@
-import { Button, Container, Head, Hr, Html, Img, Link, Preview, Row, Section, Text } from '@react-email/components';
+import { Body,Button, Container, Head, Hr, Html, Img, Link, Preview, Row, Section, Text } from '@react-email/components';
 import * as React from 'react';
 
 interface WelcomeEmailProps {
@@ -59,7 +59,7 @@ export const VerificationEmail: React.FC<VerificationEmailProps> = ({
             Your verification code is:
           </Text>
           <div style={codeBox}>
-            <Text style={code}>{code}</Text>
+            <Text style={codeStyle}>{code}</Text>
           </div>
           <Text style={paragraph}>
             Or click the button below:
@@ -90,7 +90,7 @@ export const ScoreConfirmationEmail: React.FC<ScoreConfirmationEmailProps> = ({
 }) => (
   <Html>
     <Head />
-    <Preview>Score recorded - {score} points</Preview>
+    <Preview>{`Score recorded - ${score} points`}</Preview>
     <Body style={main}>
       <Container style={container}>
         <Section style={box}>
@@ -100,7 +100,7 @@ export const ScoreConfirmationEmail: React.FC<ScoreConfirmationEmailProps> = ({
             Your golf score has been recorded:
           </Text>
           <div style={scoreBox}>
-            <Text style={scoreValue}>{score}</Text>
+            <Text style={scoreValue}>{score.toString()}</Text>
             <Text style={scoreDate}>{new Date(date).toLocaleDateString()}</Text>
           </div>
           <Text style={paragraph}>
@@ -307,12 +307,12 @@ export const CharityUpdateEmail: React.FC<CharityUpdateEmailProps> = ({
             Through GreenSwing, you're making a real difference!
           </Text>
           <div style={impactBox}>
-            <Text style={charityName}>
-              <strong>{charityName}</strong>
-            </Text>
-            <Text style={amountRaised}>
-              Amount Raised: <strong>£{(amountRaised / 100).toFixed(2)}</strong>
-            </Text>
+            <Text style={charityNameStyle}>
+  <strong>{charityName}</strong>
+</Text>
+            <Text style={amountRaisedStyle}>
+  Amount Raised: <strong>£{(amountRaised / 100).toFixed(2)}</strong>
+</Text>
           </div>
           <Text style={paragraph}>
             Your contributions are directly supporting meaningful charitable work. Thank you for being part of the GreenSwing community!
@@ -453,7 +453,7 @@ const codeBox = {
   textAlign: 'center' as const,
 };
 
-const code = {
+const codeStyle = {
   fontSize: '24px',
   fontWeight: '700',
   color: '#0070f3',
@@ -537,13 +537,13 @@ const impactBox = {
   marginBottom: '24px',
 };
 
-const charityName = {
+const charityNameStyle = {
   fontSize: '16px',
   color: '#212121',
   marginBottom: '8px',
 };
 
-const amountRaised = {
+const amountRaisedStyle = {
   fontSize: '18px',
   fontWeight: '700',
   color: '#16a34a',
