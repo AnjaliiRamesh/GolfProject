@@ -78,16 +78,28 @@ export async function signIn(data: SignInInput): Promise<FormState> {
   }
 }
 
-export async function signOut(): Promise<FormState> {
+// export async function signOut(): Promise<FormState> {
+//   const supabase = await createClient();
+//   const { error } = await supabase.auth.signOut();
+
+//   if (error) {
+//     return { success: false, message: error.message };
+//   }
+
+//   revalidatePath('/', 'layout');
+//   return { success: true, message: 'Logged out successfully' };
+// }
+
+export async function signOut(): Promise<void> {
   const supabase = await createClient();
+
   const { error } = await supabase.auth.signOut();
 
   if (error) {
-    return { success: false, message: error.message };
+    throw new Error(error.message);
   }
 
   revalidatePath('/', 'layout');
-  return { success: true, message: 'Logged out successfully' };
 }
 
 export async function forgotPassword(data: ForgotPasswordInput): Promise<FormState> {

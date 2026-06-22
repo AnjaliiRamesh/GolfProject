@@ -17,6 +17,78 @@ export async function createCheckoutSession(planType: 'monthly' | 'yearly'): Pro
     const { data: profile } = await supabase.from('profiles').select('*').eq('id', user.id).single();
     if (!profile) throw new Error('Profile not found');
 
+
+
+// DEVELOPMENT BYPASS
+// if (process.env.BYPASS_STRIPE === 'true') {
+//   console.log('Stripe bypass enabled');
+
+//   const { error } = await supabase
+//     .from('subscriptions')
+//     .upsert({
+//       user_id: user.id,
+//       stripe_customer_id: 'test_customer',
+//       stripe_subscription_id: 'test_subscription',
+//       status: 'active',
+//       plan_type: planType,
+//     });
+
+//   if (error) {
+//     console.error('Fake subscription error:', error);
+//     throw error;
+//   }
+
+//   return {
+//     data: '/dashboard',
+//   };
+// }
+
+// DEVELOPMENT BYPASS
+// console.log('BYPASS_STRIPE =', process.env.BYPASS_STRIPE);
+// if (process.env.BYPASS_STRIPE === 'true') {
+//   console.log('Stripe bypass enabled');
+
+//   const now = new Date();
+
+//   const endDate = new Date();
+
+//   if (planType === 'monthly') {
+//     endDate.setMonth(endDate.getMonth() + 1);
+//   } else {
+//     endDate.setFullYear(endDate.getFullYear() + 1);
+//   }
+
+//   const { error } = await supabase
+//     .from('subscriptions')
+//     .upsert(
+//       {
+//         user_id: user.id,
+//         stripe_customer_id: 'test_customer',
+//         stripe_subscription_id: 'test_subscription',
+//         plan_type: planType,
+//         status: 'active',
+//         current_period_start: now.toISOString(),
+//         current_period_end: endDate.toISOString(),
+//         cancel_at_period_end: false,
+//       },
+//       {
+//         onConflict: 'user_id',
+//       }
+//     );
+
+//   if (error) {
+//     console.error('Fake subscription error:', error);
+//     throw error;
+//   }
+//   console.log('UPSERT ERROR:', error);
+
+//   return {
+//     data: '/dashboard',
+//   };
+// }
+
+    
+
     const config = STRIPE_CONFIG[planType];
     
     // Check if user already has a Stripe customer ID

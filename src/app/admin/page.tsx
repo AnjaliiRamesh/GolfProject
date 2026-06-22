@@ -148,7 +148,8 @@ export default function AdminPage() {
                   <Cell fill="#3b82f6" />
                   <Cell fill="#10b981" />
                 </Pie>
-                <Tooltip formatter={(value) => `£${(value / 100).toFixed(2)}`} />
+                {/* <Tooltip formatter={(value) => `£${(value / 100).toFixed(2)}`} /> */}
+                <Tooltip formatter={(value) => `£${(Number(value) / 100).toFixed(2)}` }/>
               </PieChart>
             </ResponsiveContainer>
           </CardContent>
