@@ -7,17 +7,20 @@
 //   );
 // }
 
+// 'use client';
+
+// import { createClient } from '@/lib/supabase/client';
 import { createBrowserClient } from '@supabase/ssr';
 
-console.log(
-  'SUPABASE URL:',
-  process.env.NEXT_PUBLIC_SUPABASE_URL
-);
+// console.log(
+//   'SUPABASE URL:',
+//   process.env.NEXT_PUBLIC_SUPABASE_URL
+// );
 
-console.log(
-  'SUPABASE KEY:',
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY?.substring(0, 20)
-);
+// console.log(
+//   'SUPABASE KEY:',
+//   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY?.substring(0, 20)
+// );
 
 export function createClient() {
   return createBrowserClient(

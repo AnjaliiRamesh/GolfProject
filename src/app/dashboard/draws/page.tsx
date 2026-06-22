@@ -22,7 +22,8 @@ import {
 import { Trophy, Calendar } from 'lucide-react';
 import { TableSkeleton } from '@/components/shared/loading-skeletons';
 import { getUserDrawHistory } from '@/actions/draw.actions';
-import { createClient } from '@/lib/supabase/server';
+// import { createClient } from '@/lib/supabase/server';
+import { createClient } from '@/lib/supabase/client';
 
 interface DrawEntry {
   id: string;
