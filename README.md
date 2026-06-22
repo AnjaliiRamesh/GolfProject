@@ -1,36 +1,56 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+🏌️ GreenSwing
 
-## Getting Started
+A full-stack web application built to manage golf-based user participation, scoring, charity allocation, draw systems, and admin analytics. The platform includes separate user and admin panels with secure authentication and a Supabase-powered backend.
 
-First, run the development server:
+1. Live Application
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Deployed URL:
+https://golf-project-taupe.vercel.app/
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. User Panel Access
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Test User Login:
+Email: anjaliramesh14012005@gmail.com
+Password: Mannya911
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Features Available:
+User registration & login
+Dashboard access
+Score entry functionality
+User-specific data tracking
 
-## Learn More
+3. Admin Panel Access
 
-To learn more about Next.js, take a look at the following resources:
+Admin Login:
+Email: codetanks911@gmail.com
+Password: Priya911
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Navigation Guide:
+After login, navigate to the Dashboard.
+On the left sidebar, an Admin Panel (highlighted in golden text) is available.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Admin Features:
+User management
+Analytics overview
+Charity management
+Winner verification
+Draw system management
 
-## Deploy on Vercel
+4. Database (Supabase)
+Database is implemented using Supabase
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Schema available in:
+/supabase/migration/schema.sql
+Includes all core tables and relationships required for application functionality
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+5. Source Code Repository
+
+GitHub Repository:
+https://github.com/AnjaliiRamesh/GolfProject
+
+Tech Stack
+Frontend: React / Next.js (based on your setup)
+Backend: Node.js / API Routes
+Database: Supabase (PostgreSQL)
+Authentication: Supabase Auth
+Deployment: Vercel
