@@ -86,13 +86,6 @@
 - **Environment Management:** Environment variables (`.env.local`)
 - **Cron Jobs:** Scheduled endpoints for draw execution and maintenance
 
-### Development Tools
-- **Language:** [TypeScript 5](https://www.typescriptlang.org/) – Static type safety
-- **Package Manager:** npm / yarn
-- **Linting:** [ESLint 9](https://eslint.org/) – Code quality
-- **Configuration:** Next.js configuration, PostCSS, Tailwind
-- **Git:** Version control
-
 ---
 
 ## 📁 Project Structure
@@ -175,7 +168,6 @@ GreenSwing/
 ├── middleware.ts                     # Next.js middleware
 └── package.json                      # Dependencies & scripts
 ```
-
 ---
 
 ## 🚀 Installation & Setup
@@ -205,12 +197,7 @@ npm install
 ```
 
 This installs all dependencies including:
-- Next.js 16.2.9 with React 19
-- Tailwind CSS v4
-- Supabase client libraries
-- Stripe SDK
-- Resend integration
-- UI components and utilities
+
 
 ### Step 3: Environment Variables Setup
 
@@ -258,7 +245,6 @@ CRON_SECRET=your_secure_random_string_minimum_32_characters
 5. Create a webhook endpoint:
    - Go to **Developers → Webhooks**
    - Add endpoint: `http://localhost:3000/api/webhooks/stripe`
-   - Select events: `customer.subscription.updated`, `customer.subscription.deleted`, `payment_intent.succeeded`, `payment_intent.payment_failed`
    - Copy the **Signing Secret** (`whsec_...`)
 6. Create price objects in Stripe for monthly and yearly plans
 
@@ -302,10 +288,7 @@ npm run dev
 
 The application will start at `http://localhost:3000`
 
-```
-> next dev
-ready - started server on 0.0.0.0:3000, url: http://localhost:3000
-```
+
 
 ---
 
@@ -406,63 +389,6 @@ WHERE email = 'your@email.com';
 **Error Handling:** Standard HTTP status codes (200, 400, 401, 403, 404, 500)
 
 
-
-
-## 🚀 Deployment Guide
-
-### Deploy to Vercel (Recommended)
-
-Vercel is optimized for Next.js and provides automatic deployments.
-
-**Prerequisites:**
-- GitHub account with repository pushed
-- Vercel account ([https://vercel.com](https://vercel.com))
-
-**Steps:**
-
-1. **Push to GitHub**
-   ```bash
-   git add .
-   git commit -m "Ready for deployment"
-   git push origin main
-   ```
-
-2. **Import Project in Vercel**
-   - Go to [vercel.com/new](https://vercel.com/new)
-   - Select "Import Git Repository"
-   - Choose your GreenSwing repository
-   - Click "Import"
-
-3. **Set Environment Variables**
-   - In Vercel dashboard, go to **Settings → Environment Variables**
-   - Add all variables from your `.env.local`:
-     ```
-     NEXT_PUBLIC_SUPABASE_URL=...
-     NEXT_PUBLIC_SUPABASE_ANON_KEY=...
-     SUPABASE_SERVICE_ROLE_KEY=...
-     NEXT_PUBLIC_APP_URL=https://your-domain.com
-     NEXT_PUBLIC_STRIPE_PUBLIC_KEY=...
-     STRIPE_SECRET_KEY=...
-     STRIPE_WEBHOOK_SECRET=...
-     RESEND_API_KEY=...
-     EMAIL_FROM=...
-     CRON_SECRET=...
-     ```
-
-4. **Configure Stripe Webhook**
-   - In Stripe dashboard, update webhook endpoint to: `https://your-domain.com/api/webhooks/stripe`
-   - Update `STRIPE_WEBHOOK_SECRET` in Vercel with the new secret
-
-5. **Deploy**
-   - Click "Deploy"
-   - Vercel will build and deploy automatically
-   - View live at the provided URL
-
-
-
-
----
-
 ## 📋 Database Schema
 
 ### Core Tables
@@ -500,8 +426,6 @@ npm run dev              # Start development server on http://localhost:3000
 npm run build            # Build for production
 npm start                # Start production server
 
-
-
 ---
 
 ## 🤝 Contributing
@@ -529,9 +453,6 @@ This project is private and owned by the GreenSwing team. Unauthorized use or di
 - Email: anjaliramesh14012005@gmail.com
 
 ---
-
-
-
 
 **Last Updated:** June 2026
 **GreenSwing Version:** 1.0.0
