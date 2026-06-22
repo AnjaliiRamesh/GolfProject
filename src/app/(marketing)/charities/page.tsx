@@ -15,18 +15,94 @@ export default function CharitiesPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function fetchCharities() {
-      const supabase = createClient();
-      const { data } = await supabase
-        .from('charities')
-        .select('*')
-        .eq('active', true)
-        .order('featured', { ascending: false })
-        .order('created_at', { ascending: false });
+    // async function fetchCharities() {
+    //   const supabase = createClient();
+    //   const { data, error } = await supabase
+    //     .from('charities')
+    //     .select('*')
+    //     .eq('active', true)
+    //     .order('featured', { ascending: false })
+    //     .order('created_at', { ascending: false });
 
-      setCharities(data || []);
-      setLoading(false);
-    }
+    //     console.log('Charities Data:', data);
+    //     console.log('Charities Error:', error);
+
+    //   setCharities(data || []);
+    //   setLoading(false);
+    // }
+
+
+//     async function fetchCharities() {
+//     try {
+//     console.log('fetchCharities started');
+
+//     const supabase = createClient();
+
+//     console.log('before query');
+
+//     const result = await Promise.race([
+//       supabase
+//         .from('charities')
+//         .select('*')
+//         .eq('active', true)
+//         .order('featured', { ascending: false }),
+
+//       new Promise((_, reject) =>
+//         setTimeout(() => reject(new Error('query timeout')), 5000)
+//       ),
+//     ]);
+
+//     console.log('query result:', result);
+
+//     const { data, error } = result as any;
+
+//     console.log('Charities Data:', data);
+//     console.log('Charities Error:', error);
+
+//     setCharities(data || []);
+//   } catch (err) {
+//     console.error('fetchCharities failed:', err);
+//   } finally {
+//     console.log('setting loading false');
+//     setLoading(false);
+//   }
+// }
+
+// async function fetchCharities() {
+//   console.log("fetch started");
+
+//   const supabase = createClient();
+
+//   const result = await supabase
+//     .from("charities")
+//     .select("id,name");
+
+//   console.log("RESULT:", result);
+
+//   setLoading(false);
+// }
+
+async function fetchCharities() {
+  console.log("fetch started");
+
+  const supabase = createClient();
+
+  const { data, error } = await supabase
+.from("charities")
+    .select("*")
+    // .eq("active", true)
+    // .order("featured", { ascending: false });
+
+  console.log("DATA:", data);
+  console.log("ERROR:", error);
+   console.log("ERROR:", error);
+
+  if (!error) {
+    setCharities(data || []);
+  }
+
+  setLoading(false);
+}
 
     fetchCharities();
   }, []);
@@ -57,6 +133,7 @@ export default function CharitiesPage() {
   }
 
   return (
+    
     <div className="min-h-screen bg-gradient-to-b from-background to-background/80">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
         {/* Header */}
@@ -84,6 +161,9 @@ export default function CharitiesPage() {
         </div>
 
         {/* Charities Grid */}
+        <div className="mb-4 text-red-500">
+  Total charities loaded: {charities.length}
+</div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredCharities.map((charity) => (
             <Card key={charity.id} className="flex flex-col hover:shadow-lg transition-shadow">

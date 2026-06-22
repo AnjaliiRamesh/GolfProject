@@ -84,7 +84,7 @@ export function useUser() {
     const supabase = createClient();
 
     async function getUserProfile() {
-      console.log('getUserProfile started');
+      // console.log('getUserProfile started');
 
       try {
         const {
@@ -92,7 +92,7 @@ export function useUser() {
           error,
         } = await supabase.auth.getUser();
 
-        console.log('getUser result:', user);
+        // console.log('getUser result:', user);
         console.log('getUser error:', error);
 
         if (error) {
@@ -108,8 +108,8 @@ export function useUser() {
             .eq('id', user.id)
             .single();
 
-          console.log('Profile Data:', profile);
-          console.log('Profile Error:', profileError);
+          // console.log('Profile Data:', profile);
+          // console.log('Profile Error:', profileError);
 
           if (!profileError && profile) {
             setProfile(profile as Profile);

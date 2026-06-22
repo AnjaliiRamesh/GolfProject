@@ -5,7 +5,8 @@ import { Charity } from '@/types';
 
 export default async function CharitiesPage() {
   const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const { data: { user} } = await supabase.auth.getUser();
+
 
   if (!user) return null;
 
@@ -13,6 +14,7 @@ export default async function CharitiesPage() {
     supabase.from('charities').select('*').eq('active', true).order('featured', { ascending: false }).order('name'),
     supabase.from('user_charities').select('*, charity:charities(*)').eq('user_id', user.id).eq('active', true).maybeSingle(),
   ]);
+
 
   return (
     <CharityClientPage 

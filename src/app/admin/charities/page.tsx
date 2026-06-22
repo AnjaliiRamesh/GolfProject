@@ -59,8 +59,13 @@ export default function CharitiesPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const action = editingId ? updateCharity : createCharity;
-    const result = await action(editingId || 'new', formData);
+    let result;
+
+    if (editingId) {
+      result = await updateCharity(editingId, formData);
+    } else {
+      result = await createCharity(formData);
+    }
 
     if (result.success) {
       toast.success(result.message);
